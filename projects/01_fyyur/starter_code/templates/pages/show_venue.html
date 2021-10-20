@@ -77,43 +77,8 @@
 </section>
 
 <a href="/venues/{{ venue.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
-<button id="delBtn" onclick="deleteVenue()" class="btn btn-primary btn-lg delete" name="{{ venue.id }}">Delete</button>
+<form method="post" action="/venues/delete/{{venue.id}}">
+	<input type="submit" class="btn btn-primary btn-lg" name="{{ venue.id }}" value="Delete">
+</form>
 
-
-<script type="text/javascript">
-
-function deleteVenue() {
-
-	var deleteBtn = document.querySelector(".delete")
-	console.log(deleteBtn)
-	var venue_id = deleteBtn.name;
-	fetch('/venues/' + venue_id + '/delete', {
-		method: 'DELETE'
-	})
-
-}
-	/*
-    var deleteBtns = document.querySelectorAll(".delete")
-
-    console.log(document.getElementById("delBtn"))
-    console.log(deleteBtns)
-    console.log(document.getElementsByClassName("delete"))
-
-    for (let i = 0; i < deleteBtns.length; i++) {
-      let deleteBtn = deleteBtns[i];
-
-      deleteBtn.onclick = function(e) {
-        e.preventDefault();
-
-        var venue_id = deleteBtn.name;
-        fetch('/venues/' + venue_id + '/delete', {
-          method: 'DELETE'
-        })
-        .then(function(response){
-          window.location.replace('../../');
-        });
-      }
-    }
-	*/
-  </script>
-  {% endblock %}
+{% endblock %}

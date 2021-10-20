@@ -4,11 +4,11 @@
 
 import dateutil.parser
 import babel
-from flask import  render_template, request, Response, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for
 from flask_moment import Moment
 import logging
 from logging import Formatter, FileHandler
-from flask_wtf import Form
+#from flask_wtf import Form
 from forms import *
 from flask_migrate import Migrate
 import sys
@@ -231,34 +231,31 @@ def create_venue_submission():
   # see: http://flask.pocoo.org/docs/1.0/patterns/flashing/
   return render_template('pages/home.html')
 
-@app.route('/venues/<venue_id>/delete', methods=['DELETE'])
+@app.route('/venues/delete/<venue_id>', methods=['POST'])
 def delete_venue(venue_id):
 
   # TODO: Complete this endpoint for taking a venue_id, and using
   # SQLAlchemy ORM to delete a record. Handle cases where the session commit could fail.
   error = False
   try:
-    venue = db.session.query(Venue).get(venue_id)
-    shows = db.session.query(Show).filter(Show.venue_id == venue_id).all()
-
-    db.session.delete(venue)
+    shows = db.session.query(Show).filter(Show.venue_id == venue_id)
+    db.session.execute('delete from "Venue" where id =' + str(venue_id))
     shows.delete()
-
     db.session.commit()
     flash('Venue ' + str(venue_id) + ' and any shows at this venue were successfully deleted.')
+
   except:
     error = True
     db.session.rollback()
     print(sys.exc_info())
+
   finally:
     db.session.close()
-
     if error:
       flash('An error occurred. Venue ' + str(venue_id) + ' could not be deleted.')
 
     # redirect to index not working, implemented in AJAX promise instead
     return redirect(url_for('index'))
-  
 
   
   # BONUS CHALLENGE: Implement a button to delete a Venue on a Venue Page, have it so that
@@ -294,7 +291,6 @@ def search_artists():
 
   artists = []
   for artist in query:
-    print(artist)
 
     artists.append({
       "id": artist.id,
