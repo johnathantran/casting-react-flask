@@ -30,8 +30,7 @@ class Venue(db.Model):
     seeking_talent = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
 
-    def __repr__(self):
-        return f'<Venue {self.id} {self.genres}>'
+    shows = db.relationship('Show', backref='venue', lazy=True)
 
 class Artist(db.Model):
     __tablename__ = 'Artist'
@@ -50,14 +49,16 @@ class Artist(db.Model):
     seeking_venue = db.Column(db.Boolean)
     seeking_description = db.Column(db.String(500))
 
+    shows = db.relationship('Show', backref='artist', lazy=True)
+
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
 class Show(db.Model):
   __tablename__ = 'Show'
 
   id = db.Column(db.Integer, primary_key=True)
-  venue_id = db.Column(db.Integer)
+  venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), nullable=False)
   venue_name = db.Column(db.String)
-  artist_id = db.Column(db.Integer)
+  artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'), nullable=False)
   artist_name = db.Column(db.String)
   artist_image_link = db.Column(db.String(500))
   start_time = db.Column(db.String(120))
