@@ -12,7 +12,6 @@ from logging import Formatter, FileHandler
 from forms import *
 from flask_migrate import Migrate
 import sys
-from config import engine
 from datetime import datetime
 
 from models import db, app, Venue, Artist, Show
@@ -123,35 +122,21 @@ def show_venue(venue_id):
   # shows the venue page with the given venue_id
   # TODO: replace with real venue data from the venues table, using venue_id
   
-  SQL_QUERY = 'select\
-  "Show".artist_id, "Show".artist_name, "Show".artist_image_link, "Show".start_time\
-  from "Show"\
-  where "Show".venue_id=' + str(venue_id)
-
   try:
-    with engine.connect() as con:
-      pastShows = []
-      upcomingShows = []
-      rs = con.execute(SQL_QUERY)
-
-      for row in rs:
-        show = {
-            "artist_id": row.artist_id,
-            "artist_name": row.artist_name,
-            "artist_image_link": row.artist_image_link,
-            "start_time": row.start_time
-          }
-
-        # determine past and upcoming shows
-        formattedDate = dateutil.parser.parse(row.start_time)
-        now = datetime.now()
-
-        if formattedDate < now:
-            pastShows.append(show)
-        else:
-            upcomingShows.append(show)
-
     venue = db.session.query(Venue).get(venue_id)
+    pastShows = []
+    upcomingShows = []
+
+    for show in venue.shows:
+      # determine past and upcoming shows
+      formattedDate = dateutil.parser.parse(show.start_time)
+      now = datetime.now()
+
+      if formattedDate < now:
+          pastShows.append(show)
+      else:
+          upcomingShows.append(show)
+    
     genres = list(venue.genres.translate(str.maketrans({'{':'','}':''})).split(","))
     data = {
       "id": venue.id,
@@ -239,8 +224,9 @@ def delete_venue(venue_id):
   error = False
   try:
     shows = db.session.query(Show).filter(Show.venue_id == venue_id)
-    db.session.execute('delete from "Venue" where id =' + str(venue_id))
     shows.delete()
+    db.session.execute('delete from "Venue" where id =' + str(venue_id))
+    
     db.session.commit()
     flash('Venue ' + str(venue_id) + ' and any shows at this venue were successfully deleted.')
 
@@ -309,35 +295,22 @@ def show_artist(artist_id):
   # shows the artist page with the given artist_id
   # TODO: replace with real artist data from the artist table, using artist_id
 
-  SQL_QUERY = 'select\
-  "Show".venue_id, "Show".venue_name, "Venue".image_link, "Show".start_time\
-  from "Show", "Venue"\
-  where "Show".venue_id="Venue".id and "Show".artist_id=' + str(artist_id)
-
   try:
-    with engine.connect() as con:
-      pastShows = []
-      upcomingShows = []
-      rs = con.execute(SQL_QUERY)
-
-      for row in rs:
-        show = {
-            "venue_id": row.venue_id,
-            "venue_name": row.venue_name,
-            "venue_image_link": row.image_link,
-            "start_time": row.start_time
-          }
-
-        # determine past and upcoming shows
-        formattedDate = dateutil.parser.parse(row.start_time)
-        now = datetime.now()
-
-        if formattedDate < now:
-            pastShows.append(show)
-        else:
-            upcomingShows.append(show)
-
     artist = db.session.query(Artist).get(artist_id)
+    pastShows = []
+    upcomingShows = []
+
+    for show in artist.shows:
+
+      # determine past and upcoming shows
+      formattedDate = dateutil.parser.parse(show.start_time)
+      now = datetime.now()
+
+      if formattedDate < now:
+          pastShows.append(show)
+      else:
+          upcomingShows.append(show)
+
     genres = list(artist.genres.translate(str.maketrans({'{':'','}':''})).split(","))
     data = {
       "id": artist.id,
@@ -386,7 +359,6 @@ def edit_artist(artist_id):
     "image_link": artist.image_link
   }
 
-  #form.data['name'] = artist.name
   form.name.data = artist.name
   form.genres.data = genres
   form.city.data = artist.city
@@ -608,8 +580,8 @@ def create_show_submission():
   try:
 
     # add venue name, artist name, and artist image to Show model
-    venueQuery = db.session.query(Venue).filter_by(id=form.venue_id.data)[0]
-    artistQuery = db.session.query(Artist).filter_by(id=form.artist_id.data)[0]
+    venueQuery = db.session.query(Venue).filter_by(id=form.venue_id.data).first()
+    artistQuery = db.session.query(Artist).filter_by(id=form.artist_id.data).first()
 
     show = Show(
       venue_id=form.venue_id.data,
