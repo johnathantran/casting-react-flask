@@ -12,14 +12,19 @@ def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   setup_db(app)
-  
+
   '''
   @TODO: Set up CORS. Allow '*' for origins. Delete the sample route after completing the TODOs
   '''
+  cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+  #CORS(app)
 
-  '''
-  @TODO: Use the after_request decorator to set Access-Control-Allow
-  '''
+  # CORS Headers 
+  @app.after_request
+  def after_request(response):
+      response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+      response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE')
+      return response
 
   '''
   @TODO: 
@@ -27,6 +32,24 @@ def create_app(test_config=None):
   for all available categories.
   '''
 
+  @app.route('/')
+  def index():
+    return 'Welcome'
+
+  @app.route('/categories')
+  def hello():
+    return jsonify({'message': 'hello'})
+
+  # @app.route('/api/v1.0/categories')
+  # def get_categories():
+
+  #   categories = Category.query.all()
+  #   formatted_categories = [category.format() for category in categories]
+
+  #   return jsonify({
+  #     'success': True,
+  #     'categories': formatted_categories
+  #   })
 
   '''
   @TODO: 
@@ -40,6 +63,16 @@ def create_app(test_config=None):
   ten questions per page and pagination at the bottom of the screen for three pages.
   Clicking on the page numbers should update the questions. 
   '''
+  @app.route('/questions')
+  def get_questions():
+
+    questions = Question.query.all()
+    formatted_questions = [question.format() for question in questions]
+    
+    return jsonify({
+      'success': True,
+      'questions': formatted_questions
+    })
 
   '''
   @TODO: 
@@ -59,7 +92,10 @@ def create_app(test_config=None):
   the form will clear and the question will appear at the end of the last page
   of the questions list in the "List" tab.  
   '''
+  # @app.route('/questions', method='POST')
+  # def add_question():
 
+  #   return
   '''
   @TODO: 
   Create a POST endpoint to get questions based on a search term. 
@@ -98,7 +134,10 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
-  
+
   return app
 
+if __name__ == '__main__':
+  app = create_app()
+  app.run()
     
