@@ -13,7 +13,7 @@ class QuestionView extends Component {
       page: 1,
       totalQuestions: 0,
       categories: {},
-      currentCategory: null,
+      currentCategory: 1,
     }
   }
 
@@ -23,7 +23,8 @@ class QuestionView extends Component {
 
   getQuestions = () => {
     $.ajax({
-      url: `/questions?page=${this.state.page}`, //TODO: update request URL
+      //url: `/questions?page=${this.state.page}&category=${this.state.currentCategory}`, //TODO: update request URL
+      url: `/questions?page=${this.state.page}`,
       type: "GET",
       success: (result) => {
         this.setState({

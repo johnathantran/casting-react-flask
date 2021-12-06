@@ -66,14 +66,20 @@ def create_app(test_config=None):
   ten questions per page and pagination at the bottom of the screen for three pages.
   Clicking on the page numbers should update the questions. 
   '''
-  #@app.route('/questions?page=<int:page_number>')
+ 
+  #@app.route('/questions?page=<int:page_number>&category=<int:current_category>') 
   @app.route('/questions')
+  @app.route('/questions?page=<int:page_number>')
   def get_questions():
-    print(request)
+  
+    page = request.args.get("page", 1, type=int)
     selection = Question.query.order_by(Question.id).all()
     current_questions = paginate_questions(request, selection)
 
     if len(current_questions) == 0:
+      abort(404)
+    
+    if (page * 10) > (len(selection) + 10):
       abort(404)
 
     categories = Category.query.all()
@@ -86,9 +92,10 @@ def create_app(test_config=None):
       'questions': current_questions,
       'total_questions': len(Question.query.all()),
       'categories': categoryDict,
-      'current_category': 'History'
+      'current_category': None
     })
 
+  
   '''
   @TODO: 
   Create an endpoint to DELETE question using a question ID. 
@@ -174,13 +181,14 @@ def create_app(test_config=None):
 
     search = "%{}%".format(search_term)
     selection = Question.query.filter(Question.question.ilike(search)).all()
-    current_questions = paginate_questions(request, selection)
+    #current_questions = paginate_questions(request, selection)
+    current_questions = [question.format() for question in selection]
 
     return jsonify({
       'success': True,
       'questions': current_questions,
       'total_questions': len(Question.query.all()),
-      'current_category': 'History'
+      'current_category': None
     })
 
   '''
@@ -197,7 +205,8 @@ def create_app(test_config=None):
     selection = Question.query.filter(Question.category == category_id).all()
     print("selection: ")
     print(selection)
-    current_questions = paginate_questions(request, selection)
+    #current_questions = paginate_questions(request, selection)
+    current_questions = [question.format() for question in selection]
 
     return jsonify({
       'success': True,
@@ -217,13 +226,53 @@ def create_app(test_config=None):
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not. 
   '''
+  @app.route('/quizzes', methods=['POST'])
+  def play_quiz():
+
+    # get request params
+    body = request.get_json()
+    previousQuestions = body.get("previous_questions", None)
+    quizCategory = body.get("quiz_category", None)
+    print(previousQuestions)
+    print(quizCategory)
+    
+    # filter selection based on previous questions and category
+    selection = Question.query.filter(Question.category == quizCategory['id']).all()
+    print(selection)
+
+    if len(selection) == 0:
+      # no questions found
+      abort(404)
+
+    filtered_selection = []
+    for question in selection:
+      if question.id not in previousQuestions:
+        filtered_selection.append(question)
+
+    # return next question as response
+    next_question = filtered_selection.pop(0)
+    
+    return jsonify({
+       'question': {
+        'id': next_question.id,
+        'question': next_question.question,
+        'answer': next_question.answer, 
+        'difficulty': next_question.difficulty,
+        'category': next_question.category,
+    }
+    })   
+    
 
   '''
   @TODO: 
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+  @app.errorhandler(404)
+  def page_not_found(e):
+      print("not found")
 
+      
   return app
 
 if __name__ == '__main__':
