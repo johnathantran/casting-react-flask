@@ -179,7 +179,6 @@ def create_app(test_config=None):
 
     search = "%{}%".format(search_term)
     selection = Question.query.filter(Question.question.ilike(search)).all()
-    #current_questions = paginate_questions(request, selection)
     current_questions = [question.format() for question in selection]
 
     return jsonify({

@@ -1,4 +1,4 @@
-import os
+import config
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
@@ -15,7 +15,7 @@ class TriviaTestCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "trivia_test"
-        self.database_path = "postgresql://{}:{}@{}/{}".format('postgres','Hien3045','localhost:5432', self.database_name)
+        self.database_path = "postgresql://{}:{}@{}/{}".format(config.test_user, config.test_password,'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
         self.test_question = {
@@ -137,7 +137,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue(data['question'])
     
     # FAIL: POST request to get the next question
-    def test_500_no_questions_left(self):
+    def test_404_no_questions_left(self):
 
         selection = Question.query.filter(Question.category == 1).all()
         previousQuestions = []
