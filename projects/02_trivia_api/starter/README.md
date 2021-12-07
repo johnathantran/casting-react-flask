@@ -31,7 +31,7 @@ You will also need to rename `config_template.py` to `config.py` and fill in you
 
 1. *./backend/flaskr/`__init__.py`*
 2. *./backend/test_flaskr.py*
-3. *./backend/config_template.py
+3. *./backend/config_template.py*
 
 ### Frontend
 

@@ -41,10 +41,11 @@ flask run --reload
 The `--reload` flag will detect file changes and restart the server automatically.
 
 ## ToDo Tasks
-These are the files you'd want to edit in the backend:
+These are the files you'd want to edit in the backend. Remember to rename `config_template.py` to `config.py` and update the file with your Postgres login info:
 
 1. *./backend/flaskr/`__init__.py`*
 2. *./backend/test_flaskr.py*
+3. */backend/config_template.py*
 
 
 One note before you delve into your tasks: for each endpoint, you are expected to define the endpoint and response data. The frontend will be a plentiful resource because it is set up to expect certain endpoints and response data formats already. You should feel free to specify endpoints in your own way; if you do so, make sure to update the frontend or you will get some unexpected behavior. 
