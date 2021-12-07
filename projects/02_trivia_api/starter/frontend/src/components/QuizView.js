@@ -44,7 +44,6 @@ class QuizView extends Component {
   }
 
   getNextQuestion = () => {
-    console.log(this.state.currentQuestion.id);
     const previousQuestions = [...this.state.previousQuestions]
     if(this.state.currentQuestion.id) { previousQuestions.push(this.state.currentQuestion.id) }
 

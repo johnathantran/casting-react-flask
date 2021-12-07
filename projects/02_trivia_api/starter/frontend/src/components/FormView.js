@@ -20,40 +20,7 @@ class FormView extends Component {
       url: `/categories`, //TODO: update request URL
       type: "GET",
       success: (result) => {
-        console.log(result.categories);
-        console.log(result['categories']);
-
         this.setState({ categories: result.categories })
-        /*
-        this.setState({result:
-          [
-            {
-              "id": 1, 
-              "type": "Science"
-            }, 
-            {
-              "id": 2, 
-              "type": "Art"
-            }, 
-            {
-              "id": 3, 
-              "type": "Geography"
-            }, 
-            {
-              "id": 4, 
-              "type": "History"
-            }, 
-            {
-              "id": 5, 
-              "type": "Entertainment"
-            }, 
-            {
-              "id": 6, 
-              "type": "Sports"
-            }
-          ]
-        })
-        */
         return;
       },
       error: (error) => {

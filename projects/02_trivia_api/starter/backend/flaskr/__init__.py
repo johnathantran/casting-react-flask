@@ -71,7 +71,7 @@ def create_app(test_config=None):
   @app.route('/questions')
   @app.route('/questions?page=<int:page_number>')
   def get_questions():
-  
+    
     page = request.args.get("page", 1, type=int)
     selection = Question.query.order_by(Question.id).all()
     current_questions = paginate_questions(request, selection)
@@ -138,10 +138,8 @@ def create_app(test_config=None):
   '''
   @app.route('/questions', methods=['POST'])
   def add_question():
+
     body = request.get_json()
-
-    print(body)
-
     new_question = body.get("question", None)
     new_answer = body.get("answer", None)
     new_category = body.get("category", None)
@@ -203,9 +201,6 @@ def create_app(test_config=None):
   def get_by_category(category_id):
  
     selection = Question.query.filter(Question.category == category_id).all()
-    print("selection: ")
-    print(selection)
-    #current_questions = paginate_questions(request, selection)
     current_questions = [question.format() for question in selection]
 
     return jsonify({
@@ -233,34 +228,32 @@ def create_app(test_config=None):
     body = request.get_json()
     previousQuestions = body.get("previous_questions", None)
     quizCategory = body.get("quiz_category", None)
-    print(previousQuestions)
-    print(quizCategory)
-    
-    # filter selection based on previous questions and category
-    selection = Question.query.filter(Question.category == quizCategory['id']).all()
-    print(selection)
 
-    if len(selection) == 0:
-      # no questions found
+    try:
+      # filter selection based on previous questions and category
+      selection = Question.query.filter(Question.category == quizCategory['id']).all()
+
+      filtered_selection = []
+      for question in selection:
+        if question.id not in previousQuestions:
+          filtered_selection.append(question)
+
+      index = random.randint(0, len(filtered_selection)-1)
+      next_question = filtered_selection.pop(index)
+      
+      return jsonify({
+        'success': True,
+        'question': {
+          'id': next_question.id,
+          'question': next_question.question,
+          'answer': next_question.answer, 
+          'difficulty': next_question.difficulty,
+          'category': next_question.category,
+      }
+      })
+    
+    except:
       abort(404)
-
-    filtered_selection = []
-    for question in selection:
-      if question.id not in previousQuestions:
-        filtered_selection.append(question)
-
-    # return next question as response
-    next_question = filtered_selection.pop(0)
-    
-    return jsonify({
-       'question': {
-        'id': next_question.id,
-        'question': next_question.question,
-        'answer': next_question.answer, 
-        'difficulty': next_question.difficulty,
-        'category': next_question.category,
-    }
-    })   
     
 
   '''
@@ -268,9 +261,37 @@ def create_app(test_config=None):
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+  @app.errorhandler(400)
+  def bad_request(e):
+      return jsonify({
+        "success": False,
+        "error": 400,
+        "message": "Bad request"
+      }), 404
+
   @app.errorhandler(404)
   def page_not_found(e):
-      print("not found")
+      return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "Resource not found"
+      }), 404
+  
+  @app.errorhandler(422)
+  def unprocessable(e):
+      return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "Unprocessable"
+      }), 422
+
+  @app.errorhandler(500)
+  def internal_server_error(e):
+      return jsonify({
+        "success": False,
+        "error": 500,
+        "message": "Internal server error"
+      }), 500
 
       
   return app
