@@ -87,7 +87,7 @@ GET '/categories'
 GET '/questions?page=${integer}'
 DELETE '/questions/${id}'
 POST '/questions'
-POST '/questions/${search_term}'
+POST '/questions/search'
 GET '/categories/${id}/questions'
 POST '/quizzes'
 
@@ -144,9 +144,12 @@ POST '/questions'
 }
 - Returns: Does not return any new data
 
-POST '/questions/${search_term}'
+POST '/questions/search'
 - Sends a post request in order to search for a specific question by search term 
-- Request Arguments: 'exampleSearch' 
+- Request Body: 
+{
+    'searchTerm': 'this is the term the user is looking for'
+}
 - Returns: any array of questions, a number of totalQuestions that met the search term and the current category string 
 {
     'questions': [
