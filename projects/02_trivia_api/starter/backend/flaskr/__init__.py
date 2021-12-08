@@ -33,7 +33,6 @@ def create_app(test_config=None):
 
     questions = [question.format() for question in selection]
     current_questions = questions[start:end]
-
     return current_questions
 
   '''
@@ -72,28 +71,30 @@ def create_app(test_config=None):
   @app.route('/questions?page=<int:page_number>')
   def get_questions():
     
-    page = request.args.get("page", 1, type=int)
-    selection = Question.query.order_by(Question.id).all()
-    current_questions = paginate_questions(request, selection)
+    try:
+      page = request.args.get("page", 1, type=int)
+      selection = Question.query.order_by(Question.id).all()
+      current_questions = paginate_questions(request, selection)
 
-    if len(current_questions) == 0:
+      if (page * 10) > (len(selection) + 10):
+        raise Exception
+
+      categories = Category.query.all()
+      categoryDict = {}
+      for category in categories:
+        categoryDict[category.id] = category.type
+
+      return jsonify({
+        'success': True,
+        'questions': current_questions,
+        'total_questions': len(Question.query.all()),
+        'categories': categoryDict,
+        'current_category': None
+      })
+
+    except Exception as e:
+      print(e)
       abort(404)
-    
-    if (page * 10) > (len(selection) + 10):
-      abort(404)
-
-    categories = Category.query.all()
-    categoryDict = {}
-    for category in categories:
-      categoryDict[category.id] = category.type
-
-    return jsonify({
-      'success': True,
-      'questions': current_questions,
-      'total_questions': len(Question.query.all()),
-      'categories': categoryDict,
-      'current_category': None
-    })
 
   
   '''
@@ -108,22 +109,15 @@ def create_app(test_config=None):
 
     try:
       question = Question.query.filter(Question.id == question_id).one_or_none()
-
-      if question is None:
-        abort(404)
-
       question.delete()
-      selection = Question.query.order_by(Question.id).all()
-      current_questions = paginate_questions(request, selection)
     
       return jsonify({
         'success': True,
         'deleted': question_id,
-        'questions': current_questions,
-        'total_questions': len(Question.query.all())
       })
     
-    except:
+    except Exception as e:
+      print(e)
       abort(422)
 
   '''
@@ -146,6 +140,9 @@ def create_app(test_config=None):
     new_difficulty = body.get("difficulty", None)
     
     try:
+        if len(new_question) == 0 or len(new_answer) == 0:
+          raise Exception
+
         question = Question(question=new_question, answer=new_answer, category=new_category, difficulty=new_difficulty)
         question.insert()
 
@@ -161,8 +158,9 @@ def create_app(test_config=None):
             }
         )
 
-    except:
-        abort(422)
+    except Exception as e:
+      print(e)
+      abort(422)
     
   '''
   @TODO: 
@@ -230,15 +228,13 @@ def create_app(test_config=None):
 
     try:
       # filter selection based on previous questions and category
-      selection = Question.query.filter(Question.category == quizCategory['id']).all()
-
-      filtered_selection = []
-      for question in selection:
-        if question.id not in previousQuestions:
-          filtered_selection.append(question)
-
-      index = random.randint(0, len(filtered_selection)-1)
-      next_question = filtered_selection.pop(index)
+      if quizCategory['id'] == 0:
+        selection = Question.query.filter(~Question.id.in_(previousQuestions)).all()
+      else:
+        selection = Question.query.filter(Question.category == quizCategory['id'], ~Question.id.in_(previousQuestions)).all()
+      
+      index = random.randint(0, len(selection)-1)
+      next_question = selection.pop(index)
       
       return jsonify({
         'success': True,
@@ -251,7 +247,8 @@ def create_app(test_config=None):
       }
       })
     
-    except:
+    except Exception as e:
+      print(e)
       abort(404)
     
 
