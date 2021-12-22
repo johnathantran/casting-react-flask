@@ -2,6 +2,11 @@
 __pycache__
 venv
 
+# zipped project folders
+01_fyyur.zip
+02_trivia_api.zip
+03_coffee_shop_full_stack.zip
+
 # OS generated files #
 ######################
 .DS_Store
