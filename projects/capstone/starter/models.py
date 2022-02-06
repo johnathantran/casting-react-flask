@@ -1,8 +1,8 @@
 import config
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, Date
 from flask_sqlalchemy import SQLAlchemy
 
-database_name = "capstone"
+database_name = "casting"
 #database_path = "postgres://{}/{}".format('localhost:5432', database_name)
 database_path = "postgresql://{}:{}@{}/{}".format(config.user, config.password, 'localhost:5432', database_name)
 db = SQLAlchemy()
@@ -27,11 +27,11 @@ class Movie(db.Model):
 
   id = Column(Integer, primary_key=True)
   title = Column(String)
-  releaseDate = Column(String)
+  releasedate = Column(String)
 
-  def __init__(self, title, releaseDate):
+  def __init__(self, title, releasedate):
     self.title = title
-    self.releaseDate = releaseDate
+    self.releaseDate = releasedate
 
   def insert(self):
     db.session.add(self)
@@ -48,7 +48,7 @@ class Movie(db.Model):
     return {
       'id': self.id,
       'title': self.title,
-      'releaseDate': self.releaseDate,
+      'releaseDate': self.releasedate
     }
 
 '''
@@ -60,7 +60,7 @@ class Actor(db.Model):
 
   id = Column(Integer, primary_key=True)
   name = Column(String)
-  age = Column(String)
+  age = Column(Integer)
   gender = Column(String)
 
   def __init__(self, name, age, gender):
