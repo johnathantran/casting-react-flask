@@ -31,7 +31,7 @@ class Movie(db.Model):
 
   def __init__(self, title, releasedate):
     self.title = title
-    self.releaseDate = releasedate
+    self.releasedate = releasedate
 
   def insert(self):
     db.session.add(self)
@@ -48,7 +48,7 @@ class Movie(db.Model):
     return {
       'id': self.id,
       'title': self.title,
-      'releaseDate': self.releasedate
+      'releasedate': self.releasedate
     }
 
 '''
@@ -64,10 +64,13 @@ class Actor(db.Model):
   gender = Column(String)
 
   def __init__(self, name, age, gender):
-    self.id = id
     self.name = name
     self.age = age
     self.gender = gender
+
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
 
   def format(self):
     return {
