@@ -10,60 +10,121 @@ def create_app(test_config=None):
   CORS(app)
   setup_db(app)
   
+  # home page
   @app.route('/')
   def index():
     return render_template('index.html')
 
-
   # GET: get all movies
-  @app.route('/movies')
+  # POST: post a new movie
+  @app.route('/movies', methods=['GET', 'POST'])
   def movies():
 
-    movies = Movie.query.all()
-    return jsonify({
-      'success': True,
-      'categories': [movie.format() for movie in movies]
-    })
+      # handle the POST request
+      if request.method == 'POST':
+          title = request.form.get('title')
+          releasedate = request.form.get('releasedate')
 
-  #GET: get all actors
-  @app.route('/actors')
+          movie = Movie(
+            title=title,
+            releasedate=releasedate
+          )
+
+          movie.insert()
+          return '''
+            <h1>The movie {} released on {} is now listed in our system!</h1>
+            <a href="/movies">Return to Movies page</a>'''.format(title, releasedate)
+
+      # otherwise handle the GET request
+      else:
+        movies = Movie.query.all()
+        return render_template('movies.html', movies=movies)
+
+  # GET: get all actors
+  # POST: post a new actor
+  @app.route('/actors', methods=['GET', 'POST'])
   def actors():
 
-    actors = Actor.query.all()
-    return jsonify({
-      'success': True,
-      'categories': [actor.format() for actor in actors]
-    })
+    # handle the POST request
+    if request.method == 'POST':
+      name = request.form.get('name')
+      age = request.form.get('age')
+      gender = request.form.get('gender')
 
-    # POST: add a movie
-  @app.route('/movies', methods=['POST'])
-  def movies():
-
-    body = request.get_json()
-    title = body.get("title", None)
-    releasedate = body.get("releasedate", None)
-
-    movie = Movie(
-      title=title,
-      releasedate=releasedate
-    )
-    movie.insert()
-
-    return jsonify(
-        {
-            "success": True,
-            "created": movie.id + ": " + movie.title,
-            "total_movies": len(Movie.query.all()),
-        }
+      actor = Actor(
+        name=name,
+        age=age,
+        gender=gender
       )
 
+      actor.insert()
 
-  # POST: add an actor
-  @app.route('/actors', methods=['POST'])
-  def actors():
+      return '''
+        <h1>The actor {} {}, {} years old, is now listed in our system! </h1>
+        <a href="/actors">Return to Actors page</a>
+        '''.format(gender, name, age)
 
-    return
-    
+    # otherwise handle the GET request
+    else:  
+      actors = Actor.query.all()
+      return render_template('actors.html', actors=actors)
+
+
+
+  @app.route('/movies/<int:movie_id>', methods=['DELETE'])
+  def delete_movie(movie_id):
+
+      try:
+          movie = Movie.query.filter(
+              Movie.id == movie_id).one_or_none()
+          movie.delete()
+
+          return jsonify({
+              'success': True,
+              'deleted': movie_id,
+          })
+
+      except Exception as e:
+          print(e)
+          abort(422)
+
+  # @app.route('/actors/<int:actor_id>', methods=['DELETE'])
+  # def delete_actor(actor_id):
+
+  #     try:
+  #         actor = Movie.query.filter(
+  #             Actor.id == actor_id).one_or_none()
+  #         actor.delete()
+
+  #         return jsonify({
+  #             'success': True,
+  #             'deleted': actor_id,
+  #         })
+
+  #     except Exception as e:
+  #         print(e)
+  #         abort(422)
+  
+  
+  @app.route('/actors/<int:actor_id>/edit', methods=['PATCH'])
+  def edit_actor(actor_id):
+
+      try:
+          actor = Movie.query.filter(
+              Actor.id == actor_id).one_or_none()
+
+          actor.title="Zootopia"
+
+          actor.update()
+
+          return jsonify({
+              'success': True,
+              'deleted': actor_id,
+          })
+
+      except Exception as e:
+          print(e)
+          abort(422)
 
   return app
 
