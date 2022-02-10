@@ -1,18 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import Actor from './components/Actor';
 import ActorForm from './components/ActorForm';
+import MovieForm from './components/MovieForm';
+import Container from './components/Container';
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <ActorForm/>
-        
-      </header>
+        <h1>Casting Agency Portal</h1>
+        <Container />
     </div>
   );
 }

@@ -7,12 +7,8 @@ class ActorForm extends Component {
     constructor(){
         super();
         this.state = {
-          actors: [],
-          inputName: '',
-          inputAge: '',
-          inputGender: ''
+          actors: []
         }
-        
     }
     
     componentDidMount(){
@@ -30,7 +26,7 @@ class ActorForm extends Component {
                 return;
             },
             error: (error) => {
-                alert('Unable to load questions. Please try your request again')
+                alert('Unable to load actors. Please try your request again')
                 return;
             }
         })
@@ -42,7 +38,7 @@ class ActorForm extends Component {
         const { name, age, gender } = event.target.elements
 
         $.ajax({
-          url: '/actors', //TODO: update request URL
+          url: '/actors',
           type: "POST",
           dataType: 'json',
           contentType: 'application/json',
@@ -56,37 +52,89 @@ class ActorForm extends Component {
           },
           crossDomain: true,
           success: (result) => {
+            this.getActors()
             return 'success';
           },
           error: (error) => {
-            alert('Unable to add question. Please try your request again')
+            alert('Unable to post actor. Please try your request again')
+            return;
+          }
+        })
+    }
+
+    editActor = (event) => {
+
+        event.preventDefault();
+
+        let id = document.getElementById("select_id").value;
+        let name = document.getElementById("editName").value;
+        let age = document.getElementById("editAge").value;
+        let gender = document.getElementById("editGender").value;
+    
+        $.ajax({
+          url: '/actors/' + id,
+          type: "PATCH",
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            name: name,
+            age: age,
+            gender: gender
+          }),
+          xhrFields: {
+            withCredentials: true
+          },
+          crossDomain: true,
+          success: (result) => {
+            this.getActors()
+            return 'success';
+          },
+          error: (error) => {
+            alert('Unable to edit actor. Please try your request again')
             return;
           }
         })
     }
 
     render() {
-        console.log("rendering...")
-
         return (
             <div>
-            <div>  
-                <button onClick={() => {this.getActors()}}>Get Actors</button>
-                <h2>All Actors: </h2>
-             
-                {this.state.actors.map((actor) => (
-                    <Actor name={actor.name} age={actor.age} gender={actor.gender} />
-                ))}
+            <div>
+                <div className='forms'>
+                    <h2> List a New Actor: </h2>
+                    <form onSubmit={this.submitActor}>
+                        <div><label>Actor Name: <input type="text" name="name"/></label></div>
+                        <div><label>Age: <input type="text" name="age"/></label></div>
+                        <div><label>Gender: <input type="text" name="gender"/></label></div>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
 
-      
-                <h2> List a New Actor: </h2>
-                <form onSubmit={this.submitActor}>
-                    <div><label>Actor: <input type="text" name="name"/></label></div>
-                    <div><label>Age: <input type="text" name="age"/></label></div>
-                    <div><label>Gender: <input type="text" name="gender"/></label></div>
-                    <input type="submit" value="Submit"/>
-                </form>
-                <a href="/">Back to Home</a>
+                <hr/>
+
+                <div className='forms'>
+                    <h2> Edit an Existing Actor: </h2>
+                    <form onSubmit={this.editActor}>
+                        <select id="select_id" name="id">
+                            {this.state.actors.map((actor) => (
+                                <option value={actor.id}>{actor.id} : {actor.name}</option>
+                            ))}
+                        </select>
+                        <div><label>Actor Name: <input id="editName" type="text" name="name"/></label></div>
+                        <div><label>Age: <input id="editAge" type="text" name="age"/></label></div>
+                        <div><label>Gender: <input id="editGender" type="text" name="gender"/></label></div>
+                        <input type="submit" value="Submit"/>
+                    </form>
+                </div>
+                <hr/>
+                <h2>All Actors: </h2>
+                <div className="itemContainer">
+                    {this.state.actors.map((actor) => (
+                        <Actor id={actor.id} name={actor.name} age={actor.age} gender={actor.gender} />
+                    ))}
+                </div>
+               
+
             </div>
             </div>
         );
