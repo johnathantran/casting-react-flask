@@ -44,12 +44,21 @@ def create_app(test_config=None):
   # POST: post a new actor
   @app.route('/actors', methods=['GET', 'POST'])
   def actors():
-
+    print('endpoint hit')
     # handle the POST request
     if request.method == 'POST':
-      name = request.form.get('name')
-      age = request.form.get('age')
-      gender = request.form.get('gender')
+
+      print("\n\n POST METHOD: \n\n\n")
+
+      #name = request.form.get('name')
+      ##gender = request.form.get('gender')
+      print(request)
+      body = request.get_json()
+      print(body)
+
+      name = body.get("name", None)
+      gender = body.get("gender", None)
+      age = body.get("age", None)
 
       actor = Actor(
         name=name,
@@ -59,15 +68,23 @@ def create_app(test_config=None):
 
       actor.insert()
 
-      return '''
-        <h1>The actor {} {}, {} years old, is now listed in our system! </h1>
-        <a href="/actors">Return to Actors page</a>
-        '''.format(gender, name, age)
+      return jsonify(
+        {
+            "success": True,
+            "actors": actor.format(),
+        }
+      )
 
     # otherwise handle the GET request
     else:  
       actors = Actor.query.all()
-      return render_template('actors.html', actors=actors)
+      current_actors = [actor.format() for actor in actors]
+      return jsonify(
+        {
+            "success": True,
+            "actors": current_actors,
+        }
+      )
 
 
 
