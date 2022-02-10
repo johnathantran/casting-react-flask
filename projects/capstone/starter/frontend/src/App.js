@@ -1,7 +1,5 @@
 import './App.css';
 import Container from './components/Container';
-import AuthService from "./services/auth.service";
-import Auth from './services/Auth';
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from 'react';
 

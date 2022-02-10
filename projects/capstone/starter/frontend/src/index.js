@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
 import reportWebVitals from './reportWebVitals';
-import { env } from '../src/services/env';
+import { env } from './env';
 
 ReactDOM.render(
   
