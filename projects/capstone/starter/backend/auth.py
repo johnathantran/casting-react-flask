@@ -3,6 +3,9 @@ from flask import request
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
+import config
+
+print(config.domain)
 
 AUTH0_DOMAIN = 'dev-rpk21ij6.us.auth0.com'
 ALGORITHMS = ['RS256']
@@ -185,9 +188,9 @@ def requires_auth(permission=''):
 
             payload = verify_decode_jwt(token)
 
-            print("Check 2- Payload: \n\n")
-            print(payload)
-            print("\n\n")
+            # print("Check 2- Payload: \n\n")
+            # print(payload)
+            # print("\n\n")
 
             check_permissions(permission, payload)
             return f(payload, *args, **kwargs)

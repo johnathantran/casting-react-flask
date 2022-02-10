@@ -10,7 +10,7 @@ def create_app(test_config=None):
   app = Flask(__name__)
   CORS(app)
   setup_db(app)
-  
+
   # home page
   @app.route('/')
   def index():
@@ -50,7 +50,7 @@ def create_app(test_config=None):
       return jsonify(
         {
             "success": True,
-            "actors": movie.format(),
+            "movies": movie.format(),
         }
       )
     except Exception as e:
@@ -97,6 +97,8 @@ def create_app(test_config=None):
       )
     
     except Exception as e:
+        print("this is an error: \n\n\n")
+        print(e)
         abort(422)
 
 
@@ -117,7 +119,7 @@ def create_app(test_config=None):
 
       except Exception as e:
           print(e)
-          abort(404)
+          abort(422)
 
   # DELETE: delete an actor
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
@@ -139,7 +141,7 @@ def create_app(test_config=None):
 
       except Exception as e:
           print(e)
-          abort(404)
+          abort(422)
   
   # PATCH: update actor info
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
@@ -223,6 +225,10 @@ def create_app(test_config=None):
 
   @app.errorhandler(500)
   def internal_server_error(e):
+
+      print('error: ')
+      print(e)
+
       return jsonify({
           "success": False,
           "error": 500,
