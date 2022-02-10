@@ -34,11 +34,14 @@ class MovieForm extends Component {
 
     editMovie = (event) => {
 
+      try {
         event.preventDefault();
 
         let id = document.getElementById("select_id").value;
         let title = document.getElementById("editTitle").value;
         let releasedate = document.getElementById("editReleaseDate").value;
+
+        console.log(releasedate);
     
         $.ajax({
           url: '/movies/' + id,
@@ -49,6 +52,7 @@ class MovieForm extends Component {
             title: title,
             releasedate: releasedate,
           }),
+          headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
           xhrFields: {
             withCredentials: true
           },
@@ -62,10 +66,14 @@ class MovieForm extends Component {
             return;
           }
         })
+      } catch(e) {
+        console.log(e);
+      }
     }
 
     submitMovie = (event) => {
 
+      try {
         event.preventDefault();
         const { title, releasedate } = event.target.elements
 
@@ -78,6 +86,7 @@ class MovieForm extends Component {
             title: title.value,
             releasedate: releasedate.value,
           }),
+          headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
           xhrFields: {
             withCredentials: true
           },
@@ -91,6 +100,9 @@ class MovieForm extends Component {
             return;
           }
         })
+      } catch(e) {
+        console.log(e);
+      }
     }
 
     render() {

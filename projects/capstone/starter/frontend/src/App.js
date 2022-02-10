@@ -3,9 +3,10 @@ import Container from './components/Container';
 import AuthService from "./services/auth.service";
 import Auth from './services/Auth';
 import { useAuth0 } from '@auth0/auth0-react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-
+  const [token, setToken] = useState();
   const {
     isLoading,
     isAuthenticated,
@@ -13,7 +14,18 @@ function App() {
     user,
     loginWithRedirect,
     logout,
+    getAccessTokenSilently
   } = useAuth0();
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = await getAccessTokenSilently({
+        audience: 'casting'
+      });
+      setToken(accessToken);
+      localStorage.setItem('accessToken', accessToken);
+    })();
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -23,6 +35,9 @@ function App() {
   }
 
   if (isAuthenticated) {
+
+    console.log(localStorage.getItem('accessToken'));
+
     return (
       <div>
         Hello {user.name}{' '}
@@ -37,13 +52,6 @@ function App() {
   } else {
     return <button onClick={loginWithRedirect}>Log in</button>;
   }
-
-  return (
-    <div className="App">
-        <h1>Casting Agency Portal</h1>
-        <Container />
-    </div>
-  );
 }
 
 export default App;

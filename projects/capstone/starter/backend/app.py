@@ -169,8 +169,9 @@ def create_app(test_config=None):
           print(e)
           abort(422)
   
-  # PATCH: update actor info
+  # PATCH: update movie info
   @app.route('/movies/<int:movie_id>', methods=['PATCH'])
+  @requires_auth('patch:movies')
   def edit_movie(payload, movie_id):
 
       try:
@@ -182,7 +183,7 @@ def create_app(test_config=None):
               Movie.id == movie_id).one_or_none()
 
           movie.title = title
-          movie.gender = releasedate
+          movie.releasedate = releasedate
 
           movie.update()
 

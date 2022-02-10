@@ -13,48 +13,57 @@ class Movie extends Component {
   }
 
   editMovie(event, movie_id) {
+    try {
+      event.preventDefault();
+      const { title, releasedate } = event.target.elements
 
-    event.preventDefault();
-    const { title, releasedate } = event.target.elements
-
-    $.ajax({
-      url: '/movies/' + movie_id,
-      type: "PATCH",
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify({
-        title: title.value,
-        releasedate: releasedate.value,
-      }),
-      xhrFields: {
-        withCredentials: true
-      },
-      crossDomain: true,
-      success: (result) => {
-        return 'success';
-      },
-      error: (error) => {
-        alert('Unable to add question. Please try your request again')
-        return;
-      }
-    })
+      $.ajax({
+        url: '/movies/' + movie_id,
+        type: "PATCH",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          title: title.value,
+          releasedate: releasedate.value,
+        }),
+        headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
+        xhrFields: {
+          withCredentials: true
+        },
+        crossDomain: true,
+        success: (result) => {
+          return 'success';
+        },
+        error: (error) => {
+          alert('Unable to add question. Please try your request again')
+          return;
+        }
+      })
+    } catch(e) {
+      console.log(e);
+    }
   }
 
 
   deleteMovie(movie_id) {
-    $.ajax({
-      url: `/movies/` + movie_id,
-      type: "DELETE",
-      success: (result) => {
-        alert('Movie has been deleted!')
-        window.location.reload();
-        return;
-      },
-      error: (error) => {
-        alert('Unable to delete movie. Please try your request again')
-        return;
-      }
-    })
+    try {
+      $.ajax({
+        url: `/movies/` + movie_id,
+        type: "DELETE",
+        headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
+        success: (result) => {
+          alert('Movie has been deleted!')
+          window.location.reload();
+          return;
+        },
+        error: (error) => {
+          alert('Unable to delete movie. Please try your request again')
+          return;
+        }
+      })
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   render() {

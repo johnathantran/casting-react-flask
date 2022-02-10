@@ -16,6 +16,7 @@ class ActorForm extends Component {
     }
     
     getActors= () => {
+
         $.ajax({
             url: `/actors`, //TODO: update request URL
             type: "GET",
@@ -34,36 +35,41 @@ class ActorForm extends Component {
 
     submitActor = (event) => {
 
-        event.preventDefault();
-        const { name, age, gender } = event.target.elements
-
-        $.ajax({
-          url: '/actors',
-          type: "POST",
-          dataType: 'json',
-          contentType: 'application/json',
-          data: JSON.stringify({
-            name: name.value,
-            age: age.value,
-            gender: gender.value
-          }),
-          xhrFields: {
-            withCredentials: true
-          },
-          crossDomain: true,
-          success: (result) => {
-            this.getActors()
-            return 'success';
-          },
-          error: (error) => {
-            alert('Unable to post actor. Please try your request again')
-            return;
-          }
-        })
+        try {
+          event.preventDefault();
+          const { name, age, gender } = event.target.elements
+          $.ajax({
+            url: '/actors',
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              name: name.value,
+              age: age.value,
+              gender: gender.value
+            }),
+            headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
+            xhrFields: {
+              withCredentials: true
+            },
+            crossDomain: true,
+            success: (result) => {
+              this.getActors()
+              return 'success';
+            },
+            error: (error) => {
+              alert('Unable to post actor. Please try your request again')
+              return;
+            }
+          })
+        } catch(e) {
+          console.log(e);
+        } 
     }
 
     editActor = (event) => {
 
+      try {
         event.preventDefault();
 
         let id = document.getElementById("select_id").value;
@@ -81,6 +87,7 @@ class ActorForm extends Component {
             age: age,
             gender: gender
           }),
+          headers: { Authorization: "Bearer " + localStorage.getItem('accessToken') },
           xhrFields: {
             withCredentials: true
           },
@@ -94,9 +101,13 @@ class ActorForm extends Component {
             return;
           }
         })
+      } catch(e) {
+        console.log(e);
+      }
     }
 
     render() {
+
         return (
             <div>
             <div>
