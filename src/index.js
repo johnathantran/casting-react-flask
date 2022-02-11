@@ -6,6 +6,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import reportWebVitals from './reportWebVitals';
 import { env } from './env';
 
+console.log('env: ');
+console.log(env.auth0.callbackURL);
 ReactDOM.render(
   
   <Auth0Provider
