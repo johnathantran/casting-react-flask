@@ -2,13 +2,15 @@ from venv import create
 from flask import Flask, render_template, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from models import Movie, Actor, setup_db
+from models import Movie, Actor, setup_db, db
 from auth import AuthError, requires_auth
+from flask_migrate import Migrate
 
 def create_app(test_config=None):
   # create and configure the app
   app = Flask(__name__)
   CORS(app)
+  migrate = Migrate(app, db)
   setup_db(app)
 
   # home page

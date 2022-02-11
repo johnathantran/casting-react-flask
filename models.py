@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, Date
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 from dotenv import load_dotenv
 
