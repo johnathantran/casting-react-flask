@@ -16,7 +16,7 @@ def create_app(test_config=None):
   # home page
   @app.route('/')
   def index():
-    return render_template('index.html')
+    return 'App accessed'
 
   # GET: get all movies
   @app.route('/movies', endpoint='getMovies')
@@ -241,7 +241,6 @@ def create_app(test_config=None):
 
 app = create_app()
 if __name__ == '__main__':
-  app = create_app()
   app.run(debug=True)
   #APP.run(host='0.0.0.0', port=8080, debug=True)
 
