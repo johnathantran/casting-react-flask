@@ -13,19 +13,17 @@ class CastingTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "casting"
+        self.database_name = "casting_test"
         self.database_path = "postgresql://{}:{}@{}/{}".format(config.test_user, config.test_password,'localhost:5432', self.database_name)
         setup_db(self.app, self.database_path)
 
         self.actor = {
-            
             "name": "John Doe",
             "age": 24,
             "gender": "Male"
         }
 
-        self.movie = {
-            
+        self.movie = {           
             "title": "Shrek 4",
             "releasedate": "01-01-2021"
         }
@@ -38,12 +36,11 @@ class CastingTestCase(unittest.TestCase):
             self.db.create_all()
 
 
-
     def tearDown(self):
         """Executed after reach test"""
         pass
 
-# GET TESTS: SUCCESS AND FAILURE (requires no auth so will not test for auth failure)
+# GET TESTS: SUCCESS AND FAILURE (requires no auth so will not test for auth failure, Casting Director can access without requiring token)
 
     # 1 SUCCESS: GET movies
     def test_get_movies(self):
@@ -67,6 +64,7 @@ class CastingTestCase(unittest.TestCase):
 # POST TESTS: SUCCESS AND FAILURE
 
     # 3 SUCCESS: POST movies
+    # RBAC SUCCESS Test: Executive producer can post a movie
     def test_post_movies(self):
         res = self.client().post('/movies', json=self.movie, headers={ 
             'Authorization': "Bearer " + config.producer_token 
@@ -78,6 +76,7 @@ class CastingTestCase(unittest.TestCase):
         self.assertTrue(data['movies'])
 
     # 4 SUCCESS: POST actors
+    # RBAC SUCCESS Test: Executive producer can post an actor
     def test_post_actors(self):
         res = self.client().post('/actors', json=self.actor, headers={ 
             'Authorization': "Bearer " + config.producer_token 
