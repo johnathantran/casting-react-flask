@@ -106,6 +106,12 @@ class MovieForm extends Component {
     }
 
     render() {
+
+        let movies = this.state.movies
+        if (typeof movies === "undefined" || movies === null) {
+          movies = []
+        }
+
         return (
             <div>
             <div>  
@@ -121,7 +127,7 @@ class MovieForm extends Component {
                     <h2> Edit an Existing Movie: </h2>
                     <form onSubmit={this.editMovie}>
                         <select id="select_id" name="id">
-                            {this.state.movies.map((movie) => (
+                            {movies.map((movie) => (
                                 <option value={movie.id}>{movie.id} : {movie.title}</option>
                             ))}
                         </select>
@@ -133,7 +139,7 @@ class MovieForm extends Component {
                 <h2>All Movies: </h2>
 
                 <div className="itemContainer">
-                    {this.state.movies.map((movie) => (
+                    {movies.map((movie) => (
                         <Movie id={movie.id} title={movie.title} releasedate={movie.releasedate} />
                     ))}
                 </div>
