@@ -10,7 +10,7 @@ console.log('env: ');
 let envObj;
 
 if (window.location.href === 'http://localhost:3000/') {
-  envObj = env.test;
+  envObj = env.prod;
 }
 else {
   envObj = env.prod;
@@ -22,7 +22,8 @@ ReactDOM.render(
   <Auth0Provider
     domain={envObj.auth0.url}
     clientId={envObj.auth0.clientId}
-    redirectUri={envObj.auth0.callbackURL}
+    redirectUri={window.location.href}
+    //redirectUri={envObj.auth0.callbackURL}
   >
     <App />
   </Auth0Provider>,
