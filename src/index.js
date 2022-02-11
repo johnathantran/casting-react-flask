@@ -7,13 +7,22 @@ import reportWebVitals from './reportWebVitals';
 import { env } from './env';
 
 console.log('env: ');
-console.log(env.auth0.callbackURL);
+let envObj;
+
+if (window.location.href === 'http://localhost:3000/') {
+  envObj = env.test;
+}
+else {
+  envObj = env.prod;
+} 
+
+console.log(envObj.auth0.callbackURL);
 ReactDOM.render(
   
   <Auth0Provider
-    domain={env.auth0.url}
-    clientId={env.auth0.clientId}
-    redirectUri={env.auth0.callbackURL}
+    domain={envObj.auth0.url}
+    clientId={envObj.auth0.clientId}
+    redirectUri={envObj.auth0.callbackURL}
   >
     <App />
   </Auth0Provider>,
