@@ -33,9 +33,6 @@ function App() {
   }
 
   if (isAuthenticated) {
-    console.log(process.env.DATABASE_URL)
-    console.log(localStorage.getItem('accessToken'));
-
     return (
       <div>
         Hello {user.name}{' '}
