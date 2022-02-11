@@ -3,11 +3,13 @@ from flask import request
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
-import config
+from dotenv import load_dotenv
+import os
 
-print(config.domain)
+load_dotenv()
 
-AUTH0_DOMAIN = 'dev-rpk21ij6.us.auth0.com'
+AUTH0_DOMAIN = os.environ.get("AUTH0_DOMAIN")
+#AUTH0_DOMAIN = 'dev-rpk21ij6.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'casting'
 

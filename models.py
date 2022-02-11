@@ -1,10 +1,14 @@
-import config
 from sqlalchemy import Column, String, Integer, Date
 from flask_sqlalchemy import SQLAlchemy
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 database_name = "casting"
 #database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-database_path = "postgresql://{}:{}@{}/{}".format(config.user, config.password, 'localhost:5432', database_name)
+database_path = "postgresql://{}:{}@{}/{}".format('postgres', os.environ["PASSWORD"], 'localhost:5432', database_name)
+#database_path = os.environ["DATABASE_URL"]
 db = SQLAlchemy()
 
 '''

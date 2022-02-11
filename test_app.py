@@ -5,6 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app import create_app
 from models import setup_db, Actor, Movie
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class CastingTestCase(unittest.TestCase):
     """This class represents the trivia test case"""
@@ -14,7 +17,8 @@ class CastingTestCase(unittest.TestCase):
         self.app = create_app()
         self.client = self.app.test_client
         self.database_name = "casting_test"
-        self.database_path = "postgresql://{}:{}@{}/{}".format(config.test_user, config.test_password,'localhost:5432', self.database_name)
+        self.database_path = "postgresql://{}:{}@{}/{}".format('postgres', os.environ['PASSWORD'],'localhost:5432', self.database_name)
+        #self.database_path = os.environ["DATABASE_URL"]
         setup_db(self.app, self.database_path)
 
         self.actor = {
