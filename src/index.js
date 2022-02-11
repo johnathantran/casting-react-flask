@@ -22,8 +22,8 @@ ReactDOM.render(
   <Auth0Provider
     domain={envObj.auth0.url}
     clientId={envObj.auth0.clientId}
-    redirectUri={window.location.href}
-    //redirectUri={envObj.auth0.callbackURL}
+    //redirectUri={window.location.href}
+    redirectUri={'https://casting-react.herokuapp.com/'}
   >
     <App />
   </Auth0Provider>,
