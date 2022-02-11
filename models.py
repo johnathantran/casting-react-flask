@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-database_name = "casting"
+#database_name = os.environ["DATABASE_NAME"]
 #database_path = "postgres://{}/{}".format('localhost:5432', database_name)
-database_path = "postgresql://{}:{}@{}/{}".format('postgres', os.environ["PASSWORD"], 'localhost:5432', database_name)
-#database_path = os.environ["DATABASE_URL"]
+#database_path = "postgresql://{}:{}@{}/{}".format(os.environ["USER"], os.environ["PASSWORD"], 'localhost:5432', database_name)
+database_path = os.environ["DATABASE_URL"]
 db = SQLAlchemy()
 
 '''
