@@ -1,11 +1,31 @@
-# Backend - Full Stack Trivia API 
+# Capstone Project: Casting Service
+This app will allow a user to view various actors and movies for a casting web application. Special users can add, modify, or delete actors and movies from the casting service.
+
+The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
+
+Copy the config_template.py file provided, rename to config.py, and fill out the environment variables with the correct information first.
+
+To access the application, please login using the Auth0 service with the following provided credentials:
+Here is the login info for the 2 users:
+
+User #1: Casting Director (can only view movies and actors)
+Username: jtran304@gmail.com
+Password: Testing123!
+
+User #2: Executive Producer (has full permissions to add, edit, delete movies and actors)
+Username: jtran.testing@gmail.com
+Password: Testing123!
+
+The bearer token is provided in config.py in the producer_token, but will also be sent separately.
+
+If you experience any issues with Auth0 logging out, please clear your browser cache and try to log in again.
 
 ### Installing Dependencies for the Backend
 
 1. **Python 3.7** - Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 
-2. **Virtual Enviornment** - We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
+2. **Virtual Enviornment** - We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual environment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 
 
 3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
@@ -23,21 +43,30 @@ This will install all of the required packages we selected within the `requireme
  - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
 
-### Running the server
+### Running the server and the app
 
-From within the `./src` directory first ensure you are working using your created virtual environment.
+First ensure you are working using your created virtual environment and you are in the /backend directory.
 
 To run the server, execute:
 
 ```bash
-flask run --reload
+python app.py
 ```
 
-The `--reload` flag will detect file changes and restart the server automatically.
+Afterward, navigate to the /frontend directory to start the React application and run:
+```bash
+npm start
+```
+
+You may need to run npm install first to collect any needed packages.
 
 
 
 ## API Endpoints
+A Postman Collection is provided in the project root to test the endpoints. For the DELETE and PATCH endpoints, make sure to edit the movie or actor ID in the endpoint itself to test for successful cases.
+
+
+
 ```
 
 Endpoints
@@ -51,112 +80,104 @@ PATCH '/movies/${id}'
 PATCH '/actors/${id}'
 
 
-
 GET '/movies'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+- Fetches a list of all movies
 - Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
-
-GET '/questions?page=${integer}'
-- Fetches a paginated set of questions, a total number of questions, all categories and current category string. 
-- Request Arguments: page - integer
-- Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
+- Returns: An object with key "movies" mapping to a list of movies 
 {
-    'questions': [
+    "movies": [
         {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 2
+            "id": 17,
+            "releasedate": "01-01-2021",
+            "title": "Shrek 4"
         },
+        {
+            "id": 24,
+            "releasedate": "01-01-2021",
+            "title": "Shrek 4"
+        }
     ],
-    'totalQuestions': 100,
-    'categories': { '1' : "Science",
-    '2' : "Art",
-    '3' : "Geography",
-    '4' : "History",
-    '5' : "Entertainment",
-    '6' : "Sports" },
-    'currentCategory': None
+    "success": true
 }
 
-DELETE '/questions/${id}'
-- Deletes a specified question using the id of the question
+
+GET '/actors'
+- Fetches a list of all actors
+- Request Arguments: None
+- Returns: An object with key "movies" mapping to a list of movies 
+{
+    "actors": [
+        {
+            "age": 12,
+            "gender": "male",
+            "id": 13,
+            "name": "test"
+        },
+        {
+            "age": 52,
+            "gender": "Feale",
+            "id": 12,
+            "name": "Tammy"
+        }
+    ],
+    "success": true
+}
+
+
+POST '/movies'
+- Sends a post request in order to add a new movie
+- Request Body: 
+{
+    'title':  'Shrek',
+    'releasedate':  '01-01-2021',
+}
+- Returns: A list of all movies including the added movie
+
+
+POST '/actors'
+- Sends a post request in order to add a new actor
+- Request Body: 
+{
+    "age": 12,
+    "gender": "Male",
+    "name": "Tim"
+}
+- Returns: A list of all actors including the added actor
+
+
+DELETE '/movies/${id}'
+- Deletes a specified movie using the id of the movie
 - Request Arguments: id - integer
-- Returns: The appropriate HTTP status code and the deleted question ID.
+- Returns: The appropriate HTTP status code and the deleted movie ID.
 
-POST '/questions'
-- Sends a post request in order to add a new question
-- Request Body: 
-{
-    'question':  'Heres a new question string',
-    'answer':  'Heres a new answer string',
-    'difficulty': 1,
-    'category': 3,
-}
-- Returns: Does not return any new data
 
-POST '/questions/search'
-- Sends a post request in order to search for a specific question by search term 
-- Request Body: 
-{
-    'searchTerm': 'this is the term the user is looking for'
-}
-- Returns: any array of questions, a number of totalQuestions that met the search term and the current category string 
-{
-    'questions': [
-        {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 5
-        },
-    ],
-    'totalQuestions': 100,
-    'currentCategory': 'Entertainment'
-}
-
-GET '/categories/${id}/questions'
-- Fetches questions for a cateogry specified by id request argument 
+DELETE '/actors/${id}'
+- Deletes a specified actor using the id of the actor
 - Request Arguments: id - integer
-- Returns: An object with questions for the specified category, total questions, and current category string 
-{
-    'questions': [
-        {
-            'id': 1,
-            'question': 'This is a question',
-            'answer': 'This is an answer', 
-            'difficulty': 5,
-            'category': 4
-        },
-    ],
-    'totalQuestions': 100,
-    'currentCategory': 'History'
-}
+- Returns: The appropriate HTTP status code and the deleted actor ID.
 
-POST '/quizzes'
-- Sends a post request in order to get the next question 
+
+PATCH '/movies/${id}'
+- Sends a post request in order to edit info of existing movie
 - Request Body: 
-{'previous_questions':  an array of question id's such as [1, 4, 20, 15]
-'quiz_category': a string of the current category }
-- Returns: a True or False boolean for success, and a single new question object 
 {
-    'question': {
-        'id': 1,
-        'question': 'This is a question',
-        'answer': 'This is an answer', 
-        'difficulty': 5,
-        'category': 4
-    }
+    'title':  'Shrek',
+    'releasedate':  '01-01-2021',
 }
+- Returns: The updated movie id
+
+
+PATCH '/actors/${id}'
+- Sends a patch request in order to edit info of existing actor
+- Request Body: 
+{
+    "age": 12,
+    "gender": "Male",
+    "name": "Tim"
+}
+- Returns: The updated actor id
+
+
 
 
 
@@ -164,10 +185,9 @@ POST '/quizzes'
 
 
 ## Testing
-To run the tests, run
+To run the tests, you need to have a test database setup first with the tables Actor and Movie with the correct columns according to their models.
+
+Then just run:
 ```
-dropdb trivia_test
-createdb trivia_test
-psql trivia_test < trivia.psql
-python test_flaskr.py
+python test_app.py
 ```
