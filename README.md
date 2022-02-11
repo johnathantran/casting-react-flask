@@ -3,8 +3,19 @@ This app will allow a user to view various actors and movies for a casting web a
 
 The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
 
-Copy the config_template.py file provided, rename to config.py, and fill out the environment variables with the correct information first.
+### Setting Environment Variables
+There are 2 files you will need to modify to setup your environment variables correctly.
 
+1. **config.py** 
+In the /backend folder, copy the config_template.py file provided, rename to config.py, and fill out the environment variables with the correct database credentials, Auth0 domain, and token.
+The token will be used to configure authorization headers for the Executive Producer role as part of the unit tests in /backend/test_app.py. 
+
+2. **env.js** 
+In the /frontend folder, copy the env_template.js file provided, rename to env.js, and fill out the correct Auth0 information (domain and Client ID).
+
+For the purpose of submitting this app as a capstone project to Udacity, I will be sending both a complete config.py and env.js file separately.
+
+### Logging In
 To access the application, please login using the Auth0 service with the following provided credentials:
 Here is the login info for the 2 users:
 
@@ -16,7 +27,7 @@ User #2: Executive Producer (has full permissions to add, edit, delete movies an
 Username: jtran.testing@gmail.com
 Password: Testing123!
 
-The bearer token is provided in config.py in the producer_token, but will also be sent separately.
+The bearer token is provided in config.py in the producer_token, but will also be sent separately as this will be need to test the API endpoints using the Postman collection provided in the project root.
 
 If you experience any issues with Auth0 logging out, please clear your browser cache and try to log in again.
 
@@ -58,14 +69,12 @@ Afterward, navigate to the /frontend directory to start the React application an
 npm start
 ```
 
-You may need to run npm install first to collect any needed packages.
+You may need to run npm install first to collect any needed packages in the /frontend directory.
 
 
 
 ## API Endpoints
 A Postman Collection is provided in the project root to test the endpoints. For the DELETE and PATCH endpoints, make sure to edit the movie or actor ID in the endpoint itself to test for successful cases.
-
-
 
 ```
 

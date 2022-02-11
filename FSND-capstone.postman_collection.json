@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "dbe6d4bd-deeb-41be-ad64-4bb168884f84",
+		"name": "FSND-capstone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/actors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/movies",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/actors",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTIyMTgyLCJleHAiOjE2NDQ2MDg1ODIsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBwb3N0OmFjdG9ycyIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.URbtc8dcF6LOCuca7Ra6RsDUSyNv8oaRnOzTE7fuWV7z3EFBBGjpVsRYCciTnKrwsc_1WcckhafwXlVMOMPKNwURVGODADl-oBb07VoU1F4AKC84GAVpEp6WbF-OmlhWERcJybx8zffnvgqtd5txs_CYvfUgfzCZujfrlt7PN9UdVzbqQCHxOOuJGVl2NqWZbNwfdH6Z3lk03gf1zQ5VZ43esArFh5zlWj3VUDV7fpQFt_SXNu5yacuXdo4X2172EdXtYLvXWvEXyFPtTihzPbYo9TyWSy4XwImA_s4Jf-SHmBw0X1Omrv07qDfPVBc-x0SsSkrIXzhOARZNjqIOhg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"age\": 12,\r\n    \"gender\": \"Male\",\r\n    \"name\": \"Tim\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/actors",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/movies",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTIzNjg2LCJleHAiOjE2NDQ2MTAwODYsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.OwD7n4VuFSOZx7nHGCg4_0sIPt-SkubvcU_YxKisyjgRaBdxtjkDwMmUjuXrfDRbGyHl5SIUhb20ffAN5915bTjkW10zC5xXQbA2y6YO3otNUhf6ZmIlr97A_8Lta2UvwkDbifjGUKHORGFV8YVnyIkXH11t__YAa2ao8ZTjP0sClPiqePPZgRiqITOEN0cBaWiTRpFL0SwXOoZZBsO7zrIU9938G-25Fp1wIZBJrjhqpPq5qPd81LsXuFlmDbBSYjxZCVu2NS5ydynhHv2IIcyiJk2xZolaa9-0ZOl8NxRqE7DJSrXghhrS1ophKOPaqF3bxAOWONVlCIqJ7vpNqw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Shrek 6\",\r\n    \"releasedate\": \"01-01-2022\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/movies",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/actors/<actor_id>",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/actors/24",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actors",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/movies/<movie_id>",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/movies/24",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/actors/<actor_id>",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTIzNjg2LCJleHAiOjE2NDQ2MTAwODYsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.OwD7n4VuFSOZx7nHGCg4_0sIPt-SkubvcU_YxKisyjgRaBdxtjkDwMmUjuXrfDRbGyHl5SIUhb20ffAN5915bTjkW10zC5xXQbA2y6YO3otNUhf6ZmIlr97A_8Lta2UvwkDbifjGUKHORGFV8YVnyIkXH11t__YAa2ao8ZTjP0sClPiqePPZgRiqITOEN0cBaWiTRpFL0SwXOoZZBsO7zrIU9938G-25Fp1wIZBJrjhqpPq5qPd81LsXuFlmDbBSYjxZCVu2NS5ydynhHv2IIcyiJk2xZolaa9-0ZOl8NxRqE7DJSrXghhrS1ophKOPaqF3bxAOWONVlCIqJ7vpNqw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"age\": 52,\r\n    \"gender\": \"Feale\",\r\n    \"name\": \"Tammy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/actors/12",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"actors",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/movies/<movie_id>",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTIzNjg2LCJleHAiOjE2NDQ2MTAwODYsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyJdfQ.OwD7n4VuFSOZx7nHGCg4_0sIPt-SkubvcU_YxKisyjgRaBdxtjkDwMmUjuXrfDRbGyHl5SIUhb20ffAN5915bTjkW10zC5xXQbA2y6YO3otNUhf6ZmIlr97A_8Lta2UvwkDbifjGUKHORGFV8YVnyIkXH11t__YAa2ao8ZTjP0sClPiqePPZgRiqITOEN0cBaWiTRpFL0SwXOoZZBsO7zrIU9938G-25Fp1wIZBJrjhqpPq5qPd81LsXuFlmDbBSYjxZCVu2NS5ydynhHv2IIcyiJk2xZolaa9-0ZOl8NxRqE7DJSrXghhrS1ophKOPaqF3bxAOWONVlCIqJ7vpNqw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"age\": 52,\r\n    \"gender\": \"Feale\",\r\n    \"name\": \"Tammy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/movies/12",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"movies",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
