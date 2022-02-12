@@ -114,38 +114,37 @@ class MovieForm extends Component {
 
         return (
             <div>
-            <div>  
-                <div className="forms">
-                    <h2> List a New Movie: </h2>
-                    <form onSubmit={this.submitMovie}>
-                        <div><label>Movie: <input type="text" name="title"/></label></div>
-                        <div><label>Released on: <input type="text" name="releasedate"/></label></div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
-                <div className='forms'>
-                    <h2> Edit an Existing Movie: </h2>
-                    <form onSubmit={this.editMovie}>
-                        <select id="select_id" name="id">
-                            {movies.map((movie) => (
-                                <option value={movie.id}>{movie.id} : {movie.title}</option>
-                            ))}
-                        </select>
-                        <div><label>Movie Title: <input id="editTitle" type="text" name="title"/></label></div>
-                        <div><label>Release Date: <input id="editReleaseDate" type="text" name="releasedate"/></label></div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
-                <h2>All Movies: </h2>
+              <h1>Movie Form </h1>
+              <div>  
+                  <div className="forms">
+                      <h2> List a New Movie: </h2>
+                      <form onSubmit={this.submitMovie}>
+                          <div><label>Movie: <input type="text" name="title"/></label></div>
+                          <div><label>Released on: <input type="text" name="releasedate"/></label></div>
+                          <input type="submit" value="Submit"/>
+                      </form>
+                  </div>
+                  <div className='forms'>
+                      <h2> Edit an Existing Movie: </h2>
+                      <form onSubmit={this.editMovie}>
+                          <select id="select_id" name="id">
+                              {movies.map((movie) => (
+                                  <option value={movie.id}>{movie.id} : {movie.title}</option>
+                              ))}
+                          </select>
+                          <div><label>Movie Title: <input id="editTitle" type="text" name="title"/></label></div>
+                          <div><label>Release Date: <input id="editReleaseDate" type="text" name="releasedate"/></label></div>
+                          <input type="submit" value="Submit"/>
+                      </form>
+                  </div>
+                  <h2>All Movies: </h2>
 
-                <div className="itemContainer">
-                    {movies.map((movie) => (
-                        <Movie id={movie.id} title={movie.title} releasedate={movie.releasedate} />
-                    ))}
-                </div>
-
-               
-            </div>
+                  <div className="itemContainer">
+                      {movies.map((movie) => (
+                          <Movie id={movie.id} title={movie.title} releasedate={movie.releasedate} />
+                      ))}
+                  </div>    
+              </div>
             </div>
         );
     }

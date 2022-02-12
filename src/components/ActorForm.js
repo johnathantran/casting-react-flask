@@ -115,43 +115,42 @@ class ActorForm extends Component {
 
         return (
             <div>
-            <div>
-                <div className='forms'>
-                    <h2> List a New Actor: </h2>
-                    <form onSubmit={this.submitActor}>
-                        <div><label>Actor Name: <input type="text" name="name"/></label></div>
-                        <div><label>Age: <input type="text" name="age"/></label></div>
-                        <div><label>Gender: <input type="text" name="gender"/></label></div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
+              <h1>Actor Form </h1>
+              <div>
+                  <div className='forms'>
+                      <h2> List a New Actor: </h2>
+                      <form onSubmit={this.submitActor}>
+                          <div><label>Actor Name: <input type="text" name="name"/></label></div>
+                          <div><label>Age: <input type="text" name="age"/></label></div>
+                          <div><label>Gender: <input type="text" name="gender"/></label></div>
+                          <input type="submit" value="Submit"/>
+                      </form>
+                  </div>
 
-                <hr/>
+                  <hr/>
 
-                <div className='forms'>
-                    <h2> Edit an Existing Actor: </h2>
-                    <form onSubmit={this.editActor}>
-                        <select id="select_id" name="id">
-                            {this.state.actors.map((actor) => (
-                                <option value={actor.id}>{actor.id} : {actor.name}</option>
-                            ))}
-                        </select>
-                        <div><label>Actor Name: <input id="editName" type="text" name="name"/></label></div>
-                        <div><label>Age: <input id="editAge" type="text" name="age"/></label></div>
-                        <div><label>Gender: <input id="editGender" type="text" name="gender"/></label></div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
-                <hr/>
-                <h2>All Actors: </h2>
-                <div className="itemContainer">
-                    {actors.map((actor) => (
-                        <Actor id={actor.id} name={actor.name} age={actor.age} gender={actor.gender} />
-                    ))}
-                </div>
-               
-
-            </div>
+                  <div className='forms'>
+                      <h2> Edit an Existing Actor: </h2>
+                      <form onSubmit={this.editActor}>
+                          <select id="select_id" name="id">
+                              {this.state.actors.map((actor) => (
+                                  <option value={actor.id}>{actor.id} : {actor.name}</option>
+                              ))}
+                          </select>
+                          <div><label>Actor Name: <input id="editName" type="text" name="name"/></label></div>
+                          <div><label>Age: <input id="editAge" type="text" name="age"/></label></div>
+                          <div><label>Gender: <input id="editGender" type="text" name="gender"/></label></div>
+                          <input type="submit" value="Submit"/>
+                      </form>
+                  </div>
+                  <hr/>
+                  <h2>All Actors: </h2>
+                  <div className="itemContainer">
+                      {actors.map((actor) => (
+                          <Actor id={actor.id} name={actor.name} age={actor.age} gender={actor.gender} />
+                      ))}
+                  </div>
+              </div>
             </div>
         );
     }

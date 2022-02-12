@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { Auth0Provider } from '@auth0/auth0-react';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router} from 'react-router-dom'
 import { env } from './env';
 
 console.log('env: ');
@@ -18,19 +19,17 @@ else {
 
 console.log(envObj.auth0.callbackURL);
 ReactDOM.render(
-  
-  <Auth0Provider
-    domain={envObj.auth0.url}
-    clientId={envObj.auth0.clientId}
-    redirectUri={window.location.href}
-    //redirectUri={'https://casting-react.herokuapp.com/'}
-  >
-    <App />
-  </Auth0Provider>,
-  /*
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,*/
+  <Router>
+    <Auth0Provider
+      domain={envObj.auth0.url}
+      clientId={envObj.auth0.clientId}
+      redirectUri={window.location.href}
+      //redirectUri={'https://casting-react.herokuapp.com/'}
+    >
+      <App />
+    </Auth0Provider>
+  </Router>,
+
   document.getElementById('root')
 );
 
