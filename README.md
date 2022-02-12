@@ -1,16 +1,16 @@
 # Capstone Project: Casting Service
 This app will allow a user to view various actors and movies for a casting web application. Special users can add, modify, or delete actors and movies from the casting service.
 
-# Deployment URL: https://https://casting-jtran.herokuapp.com/
+## Deployment URL: https://https://casting-jtran.herokuapp.com/
 
 For this project, only the backend is deployed on Heroku. You can still access all the data using Postman or a local React frontend app provided. The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
 
-# Endpoint Testing
+## Endpoint Testing
 To test all endpoints, please refer to the Postman Collection found in the root of the submitted project folder.
 
 To test endpoints through the frontend, please run the frontend locally by running 'npm start' in the project root, and then interacting with the React application that launches in the browser.
 
-### Setting Environment Variables
+## Setting Environment Variables
 There are 2 files that contain environment variables.
 
 1. **.env** 
@@ -20,7 +20,7 @@ The token will be used to configure authorization headers for the Executive Prod
 
 Follow the below steps if you want to connect a local database to your frontend (by default, the local frontend will connect to the Heroku database).
 
-# Local app info, 4 step process to initialize locally:
+### Local app info, 4 step process to initialize locally:
 1. Uncomment the local environment variables in '.env' to use, and comment out the Heroku environment variables
 2. Change the 'proxy' key in package.json to value: 'http://localhost:5000/')
 3. Start the local server on port 5000 by running 'python app.py'
@@ -34,8 +34,8 @@ And switch back the environment variables in '.env' to the production credential
 In the /frontend folder, the env.js file is already provided and will automatically detect between test and production environments. Because the frontend is not deployed to Heroku as its own server, it will automatically use the test configurations because you will be running it locally.
 
 
-### Logging In
-To access the application, please login using the Auth0 service with the following provided credentials:
+## Logging In
+To access the application, please login using the Auth0 service through the frontend with the following provided credentials:
 Here is the login info for the 2 users:
 
 User #1: Casting Director (can only view movies and actors)
@@ -51,7 +51,7 @@ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJ
 
 If you experience any issues with Auth0 logging out, please clear your browser cache and try to log in again.
 
-### Installing Dependencies for the Backend
+## Installing Dependencies for the Backend
 
 1. **Python 3.7** - Follow instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
@@ -74,7 +74,7 @@ This will install all of the required packages selected within the `requirements
  - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension we'll use to handle cross origin requests from our frontend server. 
 
 
-### Running the server and the app
+## Running the server and the app
 
 First ensure you are working using your created virtual environment and you are in the /backend directory.
 
