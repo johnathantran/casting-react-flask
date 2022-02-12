@@ -3,15 +3,30 @@ This app will allow a user to view various actors and movies for a casting web a
 
 The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
 
+# Endpoint Testing
+To test all endpoints, please refer to the Postman Collection found in the root of the submitted project folder.
+
+To test endpoints through the frontend, please run the frontend locally by running 'npm start' in the project root, and then interacting with the React application that launches in the browser.
+
 ### Setting Environment Variables
-There are 2 files you will need to modify to setup your environment variables correctly.
+There are 2 files that contain environment variables.
 
 1. **.env** 
 In the /backend folder, environment variables with the Heroku Postgres database credentials, Auth0 domain information, and a token are provided. 
 
 The token will be used to configure authorization headers for the Executive Producer role as part of the unit tests in /backend/test_app.py.
 
-There is another file called '.env testCopy' and this can be used to test the app with a local database. 
+Follow the below steps if you want to connect a local database to your frontend (by default, the local frontend will connect to the Heroku database).
+
+# Local app info, 4 step process to initialize locally:
+1. Uncomment the local environment variables in '.env' to use, and comment out the Heroku environment variables
+2. Change the 'proxy' key in package.json to value: 'http://localhost:5000/')
+3. Start the local server on port 5000 by running 'python app.py'
+4. Start the frontend with 'npm start'
+
+To switch back to the Heroku database, simply change the 'proxy' key back to: "https://casting-jtran.herokuapp.com/"
+And switch back the environment variables in '.env' to the production credentials.
+
 
 2. **env.js** 
 In the /frontend folder, the env.js file is already provided and will automatically detect between test and production environments. Because the frontend is not deployed to Heroku as its own server, it will automatically use the test configurations because you will be running it locally.
@@ -29,7 +44,7 @@ User #2: Executive Producer (has full permissions to add, edit, delete movies an
 Username: jtran.testing@gmail.com
 Password: Testing123!
 
-The bearer token is this:
+The bearer token is this (will be updated as it expires):
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTMwODAzLCJleHAiOjE2NDQ2MTcyMDMsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.b98CVQP1swdpf3qgkfxi6rMZIBOnS7BfB9RVyZkURp58njRGX4xFOIeGzTh7VrhHmNkz7YoU2-2emQc_VFLDlZYMlJ1V6rrmk_RaA-fsyT5ey0rnOYal4mr2Ne7qzsVFRQNo2O5azN1OOodJqIsKIw-H28WtwxKNIm3uR1FTUpGG7YbzSpppFgJgZd0pSkXoOcoENNWVYMNeYF37xfseemY9h-Mpjx_3Uodzxym3R-jPG8Bck130bNaNxmOKhpe_nS0WF2KG4VeENdcRJejkoiQJiPILfHKJvJ_-8T-nLevDgy7D15Wpr6tNVfIlKbSSTi-92h5MbnyfkW4m9MF0Ag
 
 If you experience any issues with Auth0 logging out, please clear your browser cache and try to log in again.
@@ -61,7 +76,7 @@ This will install all of the required packages we selected within the `requireme
 
 First ensure you are working using your created virtual environment and you are in the /backend directory.
 
-To run the server, execute:
+To run the server, execute (note that you don't have to do this if you are using the deployed Heroku backend):
 
 ```bash
 python app.py
