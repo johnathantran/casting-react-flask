@@ -1,7 +1,7 @@
 # Capstone Project: Casting Service
 This app will allow a user to view various actors and movies for a casting web application. Special users can add, modify, or delete actors and movies from the casting service.
 
-## Deployment URL: https://https://casting-jtran.herokuapp.com/
+## Deployment URL: //https://casting-jtran.herokuapp.com/
 
 For this project, only the backend is deployed on Heroku. You can still access all the data using Postman or a local React frontend app provided. The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
 
