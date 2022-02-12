@@ -5,6 +5,7 @@ from flask_cors import CORS
 from models import Movie, Actor, setup_db, db
 from auth import AuthError, requires_auth
 from flask_migrate import Migrate
+from flask import render_template
 
 def create_app(test_config=None):
   # create and configure the app

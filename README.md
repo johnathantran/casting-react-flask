@@ -6,9 +6,12 @@ The app features 2 forms that can be dynamically toggled between the Actors view
 ### Setting Environment Variables
 There are 2 files you will need to modify to setup your environment variables correctly.
 
-1. **config.py** 
-In the /backend folder, copy the config_template.py file provided, rename to config.py, and fill out the environment variables with the correct database credentials, Auth0 domain, and token.
-The token will be used to configure authorization headers for the Executive Producer role as part of the unit tests in /backend/test_app.py. 
+1. **.env** 
+In the /backend folder, environment variables with the Heroku Postgres database credentials, Auth0 domain information, and a token are provided. 
+
+The token will be used to configure authorization headers for the Executive Producer role as part of the unit tests in /backend/test_app.py.
+
+There is another file called '.env testCopy' and this can be used to test the app with a local database. 
 
 2. **env.js** 
 In the /frontend folder, copy the env_template.js file provided, rename to env.js, and fill out the correct Auth0 information (domain and Client ID).

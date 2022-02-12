@@ -1,0 +1,18 @@
+<html>
+    <h1>Welcome to Casting Agency Application</h1>
+    <p>You have reached the backend server.</p>
+
+    <h2>Endpoint Testing</h2>
+    <p>To test all endpoints, please refer to the Postman Collection found in the root of the submitted project folder.</p>
+    <p>To test endpoints through the frontend, please run the frontend locally by running 'npm start' in the project root, and then interacting with the React application that launches in the browser.</p>
+
+    <p>Note that this API endpoint will return data from the Heroku Postgres database whenever you hit the endpoints through Postman or the React frontend. </p>
+
+    <h2>Running Locally</h2>
+    <p>Run 'python app.py' in the project root, then run 'npm start'.</p>
+    <p>Please note that your local app will still use the Heroku Postgres database unless you modify the .env file.</p>
+    <p>To switch to a local database, in the project root, rename the '.env testCopy' to '.env' and give the current '.env' file a different name so it is not overwritten.
+        This will reroute to a local database connection. Please note that you will have to fill out the .env file with your local database info and create the tables Movie and Actor manually. </p>
+
+    <p>Finally, to run unit tests on this app, you can run 'test_app.py' in the project root. By default, the tests will run at the local DATABASE_TEST_URL specified in the .env file.</p>
+</html>
