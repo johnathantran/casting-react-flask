@@ -1,7 +1,9 @@
 # Capstone Project: Casting Service
 This app will allow a user to view various actors and movies for a casting web application. Special users can add, modify, or delete actors and movies from the casting service.
 
-The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
+# Deployment URL: https://https://casting-jtran.herokuapp.com/
+
+For this project, only the backend is deployed on Heroku. You can still access all the data using Postman or a local React frontend app provided. The app features 2 forms that can be dynamically toggled between the Actors view and the Movies view.
 
 # Endpoint Testing
 To test all endpoints, please refer to the Postman Collection found in the root of the submitted project folder.
@@ -57,11 +59,11 @@ If you experience any issues with Auth0 logging out, please clear your browser c
 2. **Virtual Enviornment** - We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual environment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 
 
-3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
+3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-This will install all of the required packages we selected within the `requirements.txt` file.
+This will install all of the required packages selected within the `requirements.txt` file.
 
 
 4. **Key Dependencies**
