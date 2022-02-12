@@ -214,7 +214,7 @@ PATCH '/actors/${id}'
 
 
 ## Testing
-To run the tests, you need to have a test database setup first with the tables Actor and Movie with the correct columns according to their models.
+To run the tests, you need to have a test database setup first with the tables Actor and Movie with the correct columns according to their models. Please note that you will need to switch the backend database by modifying the 'package.json' proxy key and .env file as described above. This will ensure you are testing using your local database.
 
 Then just run:
 ```
