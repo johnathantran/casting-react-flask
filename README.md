@@ -14,9 +14,8 @@ The token will be used to configure authorization headers for the Executive Prod
 There is another file called '.env testCopy' and this can be used to test the app with a local database. 
 
 2. **env.js** 
-In the /frontend folder, copy the env_template.js file provided, rename to env.js, and fill out the correct Auth0 information (domain and Client ID).
+In the /frontend folder, the env.js file is already provided and will automatically detect between test and production environments. Because the frontend is not deployed to Heroku as its own server, it will automatically use the test configurations because you will be running it locally.
 
-For the purpose of submitting this app as a capstone project to Udacity, I will be sending both a complete config.py and env.js file separately.
 
 ### Logging In
 To access the application, please login using the Auth0 service with the following provided credentials:
@@ -30,7 +29,8 @@ User #2: Executive Producer (has full permissions to add, edit, delete movies an
 Username: jtran.testing@gmail.com
 Password: Testing123!
 
-The bearer token is provided in config.py in the producer_token, but will also be sent separately as this will be need to test the API endpoints using the Postman collection provided in the project root.
+The bearer token is this:
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlljTHNYanJFc1RhV2pwQV82S1RoMyJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjIwNGMzMGY3ZjI3OWIwMDZjZDliNDczIiwiYXVkIjpbImNhc3RpbmciLCJodHRwczovL2Rldi1ycGsyMWlqNi51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjQ0NTMwODAzLCJleHAiOjE2NDQ2MTcyMDMsImF6cCI6IndqQUVjMzlaeUI1Z0hFdTVHWW9hQkg5S1I3V0Z4NkhCIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.b98CVQP1swdpf3qgkfxi6rMZIBOnS7BfB9RVyZkURp58njRGX4xFOIeGzTh7VrhHmNkz7YoU2-2emQc_VFLDlZYMlJ1V6rrmk_RaA-fsyT5ey0rnOYal4mr2Ne7qzsVFRQNo2O5azN1OOodJqIsKIw-H28WtwxKNIm3uR1FTUpGG7YbzSpppFgJgZd0pSkXoOcoENNWVYMNeYF37xfseemY9h-Mpjx_3Uodzxym3R-jPG8Bck130bNaNxmOKhpe_nS0WF2KG4VeENdcRJejkoiQJiPILfHKJvJ_-8T-nLevDgy7D15Wpr6tNVfIlKbSSTi-92h5MbnyfkW4m9MF0Ag
 
 If you experience any issues with Auth0 logging out, please clear your browser cache and try to log in again.
 
