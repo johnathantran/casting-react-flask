@@ -1,4 +1,8 @@
-{
+{  
+    "root": "src/",
+    "routes": {
+      "/**":"https://casting-react.herokuapp.com/"
+    },
     "proxies": {
       "/api/": {
         "origin": "https://casting-jtran304.herokuapp.com/"
