@@ -108,6 +108,11 @@ class ActorForm extends Component {
 
     render() {
 
+        let actors = this.state.actors
+        if (typeof actors === "undefined" || actors === null) {
+          actors = []
+        }
+
         return (
             <div>
             <div>
@@ -140,7 +145,7 @@ class ActorForm extends Component {
                 <hr/>
                 <h2>All Actors: </h2>
                 <div className="itemContainer">
-                    {this.state.actors.map((actor) => (
+                    {actors.map((actor) => (
                         <Actor id={actor.id} name={actor.name} age={actor.age} gender={actor.gender} />
                     ))}
                 </div>
