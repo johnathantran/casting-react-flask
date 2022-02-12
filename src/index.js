@@ -8,16 +8,7 @@ import { BrowserRouter as Router} from 'react-router-dom'
 import { env } from './env';
 
 console.log('env: ');
-let envObj;
-
-if (window.location.href === 'http://localhost:3000/') {
-  console.log('Test env');
-  envObj = env.test;
-}
-else {
-  console.log('Prod env');
-  envObj = env.prod;
-} 
+let envObj = env.test;
 
 console.log(envObj.auth0.callbackURL);
 ReactDOM.render(
@@ -25,7 +16,7 @@ ReactDOM.render(
     <Auth0Provider
       domain={envObj.auth0.url}
       clientId={envObj.auth0.clientId}
-      redirectUri={window.location.href}
+      redirectUri={envObj.auth0.callbackURL}
       //redirectUri={'https://casting-react.herokuapp.com/'}
     >
       <App />

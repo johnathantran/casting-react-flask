@@ -5,7 +5,7 @@ export const env = {
 
   prod: {
     production: true,
-    apiServerUrl: 'https://casting-jtran304.herokuapp.com/', // the running FLASK api server url
+    apiServerUrl: 'https://casting-react.herokuapp.com/', // the running FLASK api server url
     auth0: {
       url: 'dev-rpk21ij6.us.auth0.com', // the auth0 domain prefix
       audience: 'casting', // the audience set for the auth0 app
