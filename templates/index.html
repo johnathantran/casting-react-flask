@@ -1,6 +1,9 @@
 <html>
     <h1>Welcome to Casting Agency Application</h1>
     <p>You have reached the backend server.</p>
+    <p>For this project, only the backend is deployed on Heroku. 
+        You can still access all the data using Postman or a local React frontend app provided.
+    </p>
 
     <h2>Endpoint Testing</h2>
     <p>To test all endpoints, please refer to the Postman Collection found in the root of the submitted project folder.</p>
@@ -9,7 +12,16 @@
     <p>Note that this API endpoint will return data from the Heroku Postgres database whenever you hit the endpoints through Postman or the React frontend. </p>
 
     <h2>Running Locally</h2>
-    <p>Run 'python app.py' in the project root, then run 'npm start'.</p>
+    <p>Follow the below steps if you want to connect a local database to your frontend (by default, the local frontend will connect to
+        the Heroku database).
+    </p>
+    <p></p>
+    <ol>
+        <li>1. Uncomment the local environment variables in '.env' to use, and comment out the Heroku environment variables</li>
+        <li>2. Change the 'proxy' key in package.json to value: 'http://localhost:5000/')</li>
+        <li>3. Start the local server on port 5000 by running 'python app.py'</li>
+        <li>4. Start the frontend with 'npm start'</li>
+    </ol>
 
     <p>Please note that you will have to fill out the .env file with your local database info and create the tables Movie and Actor manually. </p>
 

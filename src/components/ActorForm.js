@@ -133,7 +133,7 @@ class ActorForm extends Component {
                       <h2> Edit an Existing Actor: </h2>
                       <form onSubmit={this.editActor}>
                           <select id="select_id" name="id">
-                              {this.state.actors.map((actor) => (
+                              {actors.map((actor) => (
                                   <option value={actor.id}>{actor.id} : {actor.name}</option>
                               ))}
                           </select>

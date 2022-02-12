@@ -34,6 +34,7 @@ function App() {
   }
 
   if (isAuthenticated) {
+    console.log(localStorage.getItem('accessToken'));
     return (
       <div>
         Hello {user.name}{' '}
