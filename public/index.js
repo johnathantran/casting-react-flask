@@ -10,12 +10,10 @@ import { env } from './env';
 console.log('env: ');
 let envObj;
 
-if (window.location.href === 'http://localhost:3000/') {
-  console.log('Test env');
+if (window.location.href === 'http://localhost:5000/') {
   envObj = env.test;
 }
 else {
-  console.log('Prod env');
   envObj = env.prod;
 } 
 
